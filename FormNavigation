@@ -1,0 +1,131 @@
+// 5899b82f-bcfa-48f0-bd36-f4ce65f5f94f
+// e05cb2a4-79d2-ec11-a7b6-000d3ac99a1d
+// 1eebbe9d-7ad2-ec11-a7b6-000d3ac99a1d
+function displaycorrectForm(executionContext)
+{
+    var formContext = executionContext.getFormContext();
+
+    var relType = formContext.getAttribute("paa_form").getValue();
+    var itemId;
+
+    if(relType == 889600000)
+    {
+        itemId="5899b82f-bcfa-48f0-bd36-f4ce65f5f94f";
+    }
+    else if(relType == 889600001)
+    {
+        itemId="e05cb2a4-79d2-ec11-a7b6-000d3ac99a1d";
+    }
+    else if(relType == 889600002)
+    {
+        itemId="1eebbe9d-7ad2-ec11-a7b6-000d3ac99a1d";
+    }
+    else
+    {
+        alert("Select Any Form....");
+    }
+
+    var items = Xrm.Page.ui.formSelector.getCurrentItem().getId();
+    
+    if(items != itemId && itemId != null)
+    {
+        formContext.ui.formSelector.items.get(itemId).navigate();
+    }    
+} //end function
+  // alert(formContext);
+
+    // //if the form is update form
+    
+    // // if (Xrm.Page.ui.getFormType()==2) {
+    
+    // // variable to store the name of the form
+    
+    // var lblForm;
+    
+    // // get the value picklist field
+    
+    // var relType = formContext.getAttribute("paa_form").getValue();
+    // alert(relType);
+    // var chk;
+    
+    // // switch statement to assign the form to the picklist value
+    
+    // //change the switch statement based on the forms numbers and picklist values
+    
+    // switch (relType) {
+    
+    // case 1:
+    
+    // lblForm = "is this the option set value or the form name";
+    // chk=1;
+    
+    
+    // break;
+    
+    // case 2:
+    
+    // lblForm = "is this the option set value or the form name";
+    // chk=2;
+
+    // break;
+
+    // // case 3:
+    
+    // // lblForm = "is this the option set value or the form name";
+    
+    
+    
+    // default:
+    
+    // lblForm = "Default Lead";
+    // chk=3;
+    
+    // }
+    // alert(chk);
+    
+    // // Current form's label
+    
+    // var formLabel = Xrm.Page.ui.formSelector.getCurrentItem().getLabel();
+    // alert(Xrm.Page.ui.formSelector.getCurrentItem().getLabel());
+    // alert(formLabel);
+    
+    // //check if the current form is form need to be displayed based on the value
+    
+    // if (Xrm.Page.ui.formSelector.getCurrentItem().getLabel() != lblForm) {
+    
+    // var items = Xrm.Page.ui.formSelector.items.get();
+
+    // for (var i in items) {
+    
+    // var item = items[i];
+    // alert(items);
+    
+    // var itemId = item.getId();
+    // alert(itemId);
+    // break;
+    
+    // var itemLabel = item.getLabel();
+    // alert(itemLabel);
+    // Xrm.Page.ui.formSelector.items.get(itemId).navigate();
+    
+    // if (itemLabel == lblForm) {
+    //     alert(item.navigate());
+    //     item.navigate();
+    
+    // //Check the current form is the same form to be redirected.
+    
+    // if(itemLabel != formLabel) {
+    
+    // //navigate to the form
+    // alert(item.navigate());
+    // item.navigate();
+    
+    // } //endif
+    
+    // } //endif
+    
+    // } //end for
+    
+    // } //endif
+    
+    // // } //endif
