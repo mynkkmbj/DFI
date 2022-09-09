@@ -1,0 +1,28 @@
+function sendreport(){
+    var executeWorkflowRequest = {
+        entity: { entityType: "workflow", id: "" },
+        EntityId: { guid: "" },
+    
+        getMetadata: function () {
+            return {
+                boundParameter: "entity",
+                parameterTypes: {
+                    entity: { typeName: "mscrm.workflow", structuralProperty: 5 },
+                    EntityId: { typeName: "Edm.Guid", structuralProperty: 1 }
+                },
+                operationType: 0, operationName: "ExecuteWorkflow"
+            };
+        }
+    };
+    
+    Xrm.WebApi.online.execute(executeWorkflowRequest).then(
+        function success(response) {
+            if (response.ok) { return response.json(); }
+        }
+    ).then(function (responseBody) {
+        var result = responseBody;
+        console.log(result);
+    }).catch(function (error) {
+        console.log(error.message);
+    });
+}
