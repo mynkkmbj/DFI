@@ -1,0 +1,52 @@
+function setCustomView(projectTemplateId) {
+
+    var functionName = "setCustomView";
+
+    try {
+
+        //Check whether the field exist or not
+
+        if (isValid(Xrm.Page.getControl("new_projecttemplateitemid"))) {
+
+            // add the randomly generated GUID for the view id
+            var viewId = '{ 00000000-0000 - 0000 - 0000 - 000000000001}';
+
+
+
+        //add the entity name
+
+        var entityName = "new_projecttemplateitem";
+
+
+
+        // add the view display name
+
+        var viewDisplayName = "Project Template Item Lookup View";
+
+
+
+        // fetch xml for filtered Project Template Item records
+
+        var fetchXml = "<fetch version='1.0' output - format='xml - platform' mapping ='logical' distinct ='false'> " +"<entity name='new_projecttemplateitem'>" + "<attribute name='new_name' />" +"<filter type='and'>" + "<condition attribute='new_projecttemplate' operator='eq' value='" + projectTemplateId + "' />" +"</filter>" + "</entity >" + "</fetch >";
+
+
+
+        //Grid Layout for filtered records
+
+        var layoutXml = "<grid name=' resultset' object='1' jump ='productid' select ='1' icon ='1' preview ='1'>" +    "<row name=' result' id=' new_projecttemplateitemid'>" +"<cell name='new_name' width='150' />" +"<cell name='createdon' width='150' />" +"</row>" +"</grid >";
+
+
+
+        // add the custom view for the lookup field
+
+        Xrm.Page.getControl("new_projecttemplateitemid").addCustomView(viewId, entityName, viewDisplayName, fetchXml, layoutXml, true);
+
+    }
+    
+    } catch (e) {
+
+    throwError(e, functionName);
+
+}
+    
+    }
