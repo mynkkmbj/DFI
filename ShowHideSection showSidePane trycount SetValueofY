@@ -1,0 +1,131 @@
+function ShowHideSection(executionContext)
+
+{ 
+    var formContext = executionContext.getFormContext();
+    var showSection=false;
+    //Xrm.Page.ui.tabs.get("Tab").sections.get("Section").setVisible(showSection);
+    var bool = formContext.getAttribute("paa_booleanfield").getValue();
+    var tabObj = formContext.ui.tabs.get("Tab");
+    var sectionObj = tabObj.sections.get("Section");
+    sectionObj.setVisible(showSection);
+    //formContext.getControl("Section").setVisible(false);
+    if(bool==1)
+    {
+        //showSection=true;
+        sectionObj.setVisible(true);
+        //alert(showSection);
+    }
+    else 
+    {
+        //showSection=true;
+        sectionObj.setVisible(false);
+        //alert(showSection);
+    }
+    //formContext.getControl("Section").setVisible(showSection);
+}
+function showSidePane(executionContext){
+   
+    var Subgrid_1 = "Subgrid_1";
+    var columnName = "am13_contact"; 
+    var formContext = executionContext.getFormContext();
+    var firstRecord = formContext.getControl(Subgrid_1).getData().getEntity().getEntityReference();
+    //.getGrid().getRows().get(1);
+   console.log(firstRecord);
+    var pane = Xrm.App.sidePanes.getPane("PrimaryContact");
+    if(typeof(pane) == "undefined" || pane == null){
+                            Xrm.App.sidePanes.createPane({
+                                title: "primary contact",
+                                paneId: "PrimaryContact",
+                                canClose: true,
+                                width: 400
+                            }).then((pane) => {
+                                displayAccountInPane(pane, 
+                                    formContext.getAttribute(columnName).getValue()[0].entityType,
+                                    formContext.getAttribute(columnName).getValue()[0].id);
+                            });
+                        }
+    else{
+        displayAccountInPane(
+            pane,
+            formContext.getAttribute(columnName).getValue()[0].entityType,
+            formContext.getAttribute(columnName).getValue()[0].id
+            );
+        }                     
+}
+function showSidePane(executionContext) {
+
+    var Subgrid_1 = "Subgrid_1"
+    var columnName = "primarycontactid";
+    var formContext = executionContext.getFormContext();
+    var firstRecord = formContext.getControl(Subgrid_1).getGrid().getRows().get(1); //.getData().getEntity().getEntityReference();
+    alert(firstRecord);
+    alert(columnName);
+
+    var pane = Xrm.App.sidePanes.getPane("primarycontactid");
+    if (typeof (pane) == "undefined" || pane == null) {
+        Xrm.App.sidePanes.createPane({
+            title: "Contacts",
+            //imageSrc: "WebResources/carl_accounticon.svg",
+            paneId: "ContactList",
+            canClose: false,
+            width: 400
+        }).then((pane) => {
+            pane.navigate({
+                pageType: "entitylist",
+                entityName: "contact",
+            })
+        });
+        Xrm.App.sidePanes.createPane({
+            title: "primary contact",
+            paneId: "paa_contact1",
+            canClose: true,
+            width: 400
+        }).then((pane) => {
+            displayAccountInPane(pane,
+                formContext.getAttribute(columnName).getValue()[0].entityType,
+                formContext.getAttribute(columnName).getValue()[0].id);
+        });
+    }
+    else {
+        displayAccountInPane(
+            pane,
+            formContext.getAttribute(columnName).getValue()[0].entityType,
+            formContext.getAttribute(columnName).getValue()[0].id
+        );
+    }
+}
+
+//paa_trycount
+function trycount(executionContext)
+
+{ 
+    var formContext = executionContext.getFormContext();
+    var x = formContext.getAttribute("paa_trycount").getValue();
+    x++;
+    
+    formContext.getAttribute("paa_trycount").setValue(x);
+}
+alert('Hello World');
+function OpenQC(PrimaryControl) {
+    var formContext = PrimaryControl;
+    alert("Done");
+    var params = {};
+   
+
+            var thisAccount = {
+                entityType: "account",
+                id: Xrm.Page.data.entity.getId()
+            };
+
+            Xrm.Utility.openQuickCreate("contact", thisAccount, params);
+
+ 
+}
+function SetValueofY(executionContext)
+
+{ 
+    var formContext = executionContext.getFormContext();
+    var x = formContext.getAttribute("paa_x").getValue();
+    var y = x;
+    formContext.getAttribute("paa_y").setValue(y);
+}
