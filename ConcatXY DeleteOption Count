@@ -1,0 +1,55 @@
+function ConcatXY(executionContext)
+
+{ 
+    var formContext = executionContext.getFormContext();
+    var x = formContext.getAttribute("paa_x").getValue();
+    var y=formContext.getAttribute("paa_y").getValue();
+    var z= x+y;
+    formContext.getAttribute("paa_z").setValue(z);
+
+}
+function DeleteOption(executionContext)
+
+{ 
+    var formContext = executionContext.getFormContext();
+    var x = formContext.getAttribute("paa_optiondelete").getValue();
+    if(x==true)
+    {
+        // alert(x);
+        formContext.getControl("paa_deletedoptions").removeOption(889600000);
+
+    }
+    else
+    {
+        // alert(x);
+        formContext.getControl("paa_deletedoptions").addOption({
+            value: 889600000,
+            text: "Deleted"});
+    }
+
+
+}
+
+// var count = formContext.getControl(officeGridName).getGrid().getTotalRecordCount();
+/*function Count(executionContext)
+
+{ 
+    var formContext = executionContext.getFormContext();
+    var x = formContext.getControl("Child").getGrid().getTotalRecordCount();
+    // alert(x);
+    formContext.getAttribute("paa_trycount").setValue(x);
+}*/
+// var count = formContext.getControl(officeGridName).getGrid().getTotalRecordCount();
+function Count(executionContext)
+
+{ 
+    var formContext = executionContext.getFormContext();
+    //let gridContext = formContext.getControl("Child");
+    let myContactsGridOnloadFunction = function () { console.log("Subgrid OnLoad event occurred") };
+    //gridContext.addOnLoad(myContactsGridOnloadFunction);
+    //alert(myContactsGridOnloadFunction);
+    formContext.getControl("Child").addOnLoad(myContactsGridOnloadFunction);
+    var x = formContext.getControl("Child").getGrid().getTotalRecordCount();
+    //alert(x);
+    formContext.getAttribute("paa_count").setValue(x);
+}
